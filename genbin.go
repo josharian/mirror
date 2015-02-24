@@ -133,7 +133,11 @@ var preamble = []byte(`
 package mirror
 `)
 
-const tests = `{{$name := .Name}}{{$op := .Tok}}{{$rel := .Rel}}{{$shift := .Shift}}
+const tests = `
+{{$name := .Name}}
+{{$op := .Tok}}
+{{$rel := .Rel}}
+{{$shift := .Shift}}
 
 {{range .Types}}
 
@@ -146,7 +150,8 @@ func Test{{$name}}{{.Class}}(t *testing.T) {
 		f	interface{}
 		typ	string
 	}{
-	{{range .Names}}{
+	{{range .Names}}
+		{
 			{{if $shift}}
 			f: func(x {{.}}, y uint64) bool {
 			{{else}}
@@ -176,7 +181,10 @@ func Test{{$name}}{{.Class}}(t *testing.T) {
 {{end}}
 `
 
-const fns = `{{$op := .Tok}}{{$rel := .Rel}}{{$shift := .Shift}}
+const fns = `
+{{$op := .Tok}}
+{{$rel := .Rel}}
+{{$shift := .Shift}}
 
 // {{.Name}} implements the binary {{.Tok}} op.
 {{if $shift}}
