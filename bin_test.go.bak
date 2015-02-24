@@ -1,0 +1,215 @@
+package mirror
+
+import (
+	"reflect"
+	"testing"
+	"testing/quick"
+)
+
+func TestAddUint(t *testing.T) {
+	type check struct {
+		f   interface{}
+		typ string
+	}
+
+	checks := []check{
+		{
+			f: func(x, y uint) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(uint)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "uint",
+		},
+		{
+			f: func(x, y uint8) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(uint8)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "uint8",
+		},
+		{
+			f: func(x, y uint16) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(uint16)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "uint16",
+		},
+		{
+			f: func(x, y uint32) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(uint32)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "uint32",
+		},
+		{
+			f: func(x, y uint64) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(uint64)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "uint64",
+		},
+		{
+			f: func(x, y uintptr) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(uintptr)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "uintptr",
+		},
+	}
+
+	for _, tt := range checks {
+		if err := quick.Check(tt.f, nil); err != nil {
+			t.Error(tt.typ, err)
+		}
+	}
+}
+
+func TestAddFloat(t *testing.T) {
+	type check struct {
+		f   interface{}
+		typ string
+	}
+
+	checks := []check{
+		{
+			f: func(x, y float32) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(float32)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "float32",
+		},
+		{
+			f: func(x, y float64) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(float64)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "float64",
+		},
+	}
+
+	for _, tt := range checks {
+		if err := quick.Check(tt.f, nil); err != nil {
+			t.Error(tt.typ, err)
+		}
+	}
+}
+
+func TestAddComplex(t *testing.T) {
+	type check struct {
+		f   interface{}
+		typ string
+	}
+
+	checks := []check{
+		{
+			f: func(x, y complex64) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(complex64)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "complex64",
+		},
+		{
+			f: func(x, y complex128) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(complex128)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "complex128",
+		},
+	}
+
+	for _, tt := range checks {
+		if err := quick.Check(tt.f, nil); err != nil {
+			t.Error(tt.typ, err)
+		}
+	}
+}
+
+func TestAddString(t *testing.T) {
+	type check struct {
+		f   interface{}
+		typ string
+	}
+
+	checks := []check{
+		{
+			f: func(x, y string) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(string)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "string",
+		},
+	}
+
+	for _, tt := range checks {
+		if err := quick.Check(tt.f, nil); err != nil {
+			t.Error(tt.typ, err)
+		}
+	}
+}
+
+func TestAddInt(t *testing.T) {
+	type check struct {
+		f   interface{}
+		typ string
+	}
+
+	checks := []check{
+		{
+			f: func(x, y int) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(int)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "int",
+		},
+		{
+			f: func(x, y int8) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(int8)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "int8",
+		},
+		{
+			f: func(x, y int16) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(int16)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "int16",
+		},
+		{
+			f: func(x, y int32) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(int32)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "int32",
+		},
+		{
+			f: func(x, y int64) bool {
+				got := Add(reflect.ValueOf(x), reflect.ValueOf(y)).Interface().(int64)
+				want := x + y
+				return reflect.DeepEqual(got, want)
+			},
+			typ: "int64",
+		},
+	}
+
+	for _, tt := range checks {
+		if err := quick.Check(tt.f, nil); err != nil {
+			t.Error(tt.typ, err)
+		}
+	}
+}

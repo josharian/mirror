@@ -1,0 +1,124 @@
+package mirror
+
+import (
+	"fmt"
+	"reflect"
+)
+
+// Add implements the binary ADD op.
+// Add panics if x and y have different type
+// or are not of numeric or string kind.
+func Add(x, y reflect.Value) reflect.Value {
+	mustSameType(x, y)
+
+	z := reflect.New(x.Type()).Elem()
+
+	switch x.Type().Kind() {
+
+	case reflect.Int:
+		xx := int(x.Int())
+		yy := int(y.Int())
+		zz := int64(xx + yy)
+		z.SetInt(zz)
+		return z
+
+	case reflect.Int8:
+		xx := int8(x.Int())
+		yy := int8(y.Int())
+		zz := int64(xx + yy)
+		z.SetInt(zz)
+		return z
+
+	case reflect.Int16:
+		xx := int16(x.Int())
+		yy := int16(y.Int())
+		zz := int64(xx + yy)
+		z.SetInt(zz)
+		return z
+
+	case reflect.Int32:
+		xx := int32(x.Int())
+		yy := int32(y.Int())
+		zz := int64(xx + yy)
+		z.SetInt(zz)
+		return z
+
+	case reflect.Int64:
+		xx := x.Int()
+		yy := y.Int()
+		zz := xx + yy
+		z.SetInt(zz)
+		return z
+
+	case reflect.Uint:
+		xx := uint(x.Uint())
+		yy := uint(y.Uint())
+		zz := uint64(xx + yy)
+		z.SetUint(zz)
+		return z
+	case reflect.Uint8:
+		xx := uint8(x.Uint())
+		yy := uint8(y.Uint())
+		zz := uint64(xx + yy)
+		z.SetUint(zz)
+		return z
+	case reflect.Uint16:
+		xx := uint16(x.Uint())
+		yy := uint16(y.Uint())
+		zz := uint64(xx + yy)
+		z.SetUint(zz)
+		return z
+	case reflect.Uint32:
+		xx := uint32(x.Uint())
+		yy := uint32(y.Uint())
+		zz := uint64(xx + yy)
+		z.SetUint(zz)
+		return z
+	case reflect.Uint64:
+		xx := x.Uint()
+		yy := y.Uint()
+		zz := xx + yy
+		z.SetUint(zz)
+		return z
+	case reflect.Uintptr:
+		xx := uintptr(x.Uint())
+		yy := uintptr(y.Uint())
+		zz := uint64(xx + yy)
+		z.SetUint(zz)
+		return z
+
+	// Float and complex types
+	case reflect.Float32:
+		xx := float32(x.Float())
+		yy := float32(y.Float())
+		zz := float64(xx + yy)
+		z.SetFloat(zz)
+		return z
+	case reflect.Float64:
+		xx := x.Float()
+		yy := y.Float()
+		zz := xx + yy
+		z.SetFloat(zz)
+		return z
+	case reflect.Complex64:
+		xx := complex64(x.Complex())
+		yy := complex64(y.Complex())
+		zz := complex128(xx + yy)
+		z.SetComplex(zz)
+		return z
+	case reflect.Complex128:
+		xx := x.Complex()
+		yy := y.Complex()
+		zz := xx + yy
+		z.SetComplex(zz)
+		return z
+
+	case reflect.String:
+		xx := x.String()
+		yy := y.String()
+		zz := xx + yy
+		z.SetString(zz)
+		return z
+	}
+	panic(fmt.Sprintf("operator + not defined on %v", x.Type()))
+}
